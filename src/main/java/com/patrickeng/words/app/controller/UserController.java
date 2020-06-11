@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,39 +20,39 @@ public class UserController {
 
 
 	@Autowired
-	private UserService userservice;
+	private UserService userService;
 
-	@RequestMapping(method = RequestMethod.POST, value ="/{id}/{name}")
+	@RequestMapping(method = {RequestMethod.GET,RequestMethod.POST}, value ="/{number}/{name}")
 	@ResponseBody
 	public ResponseEntity<?> setUser(HttpServletRequest request,
-                                     HttpServletResponse response, @PathVariable String id, @PathVariable String name) {
+                                     HttpServletResponse response, @PathVariable String number, @PathVariable String name) {
 
-		System.out.println("id"+id+"name"+name);
-		Long longId = Long.parseLong(id);
-		
+		System.out.println("number"+number+"name"+name);
+		int intNumber = Integer.parseInt(number);
+
 		UserBo userbo = new UserBo();
-		userbo.setId(longId);
+		userbo.setNumber(intNumber);
 		userbo.setName(name);
-		userservice.add(userbo);
+		userService.add(userbo);
 		
 		
 		try {
-			UserBo QueryUserBo = userservice.get(longId);
+			UserBo QueryUserBo = userService.get(intNumber);
 		
 			return new ResponseEntity<>(QueryUserBo, HttpStatus.OK);
 		}
 		catch(Exception e) {
-			
-			return new ResponseEntity<>("Failed", HttpStatus.NOT_FOUND);
+			System.out.println(e);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value="/all")
 	@ResponseBody
 	public ResponseEntity<?> getAllUser(HttpServletRequest request,
                                         HttpServletResponse response){
 		
-		List<UserEntity> userlist = userservice.findAll();
+		List<UserEntity> userlist = userService.findAll();
 		
 		
 		return new ResponseEntity<>(userlist, HttpStatus.OK);
@@ -63,11 +60,13 @@ public class UserController {
 	
 	
 	
-	@RequestMapping(method = RequestMethod.GET,value="/new/{newName}")
+	@RequestMapping(method = RequestMethod.POST,value="/new")
 	@ResponseBody
 	public ResponseEntity<?> setNewUserByName(HttpServletRequest request,
-                                              HttpServletResponse response, @PathVariable String newName){
-		
+                                              HttpServletResponse response, @RequestBody UserEntity userEntity){
+		String userId = userEntity.getUserId();
+		String name = userEntity.getName();
+		int number = userEntity.getNumber();
 		//////
 		
 		

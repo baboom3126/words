@@ -12,33 +12,34 @@ import java.util.List;
 public class UserService {
 
 	@Autowired
-	private UserRepository userrepository;
+	private UserRepository userRepository;
 	
 	public void add(UserBo bo) {
 		
 		UserEntity user = new UserEntity();
-		user.setId(bo.getId());
+		user.setNumber(bo.getNumber());
 		user.setName(bo.getName());
-		userrepository.save(user);
+		userRepository.save(user);
 	}
 	
 	public void save(UserEntity user) {
-		userrepository.save(user);
+		userRepository.save(user);
 	}
 	
 	
-	public UserBo get(Long id) {
+	public UserBo get(int number) {
 		
-		UserEntity user = userrepository.findById(id).orElse(new UserEntity());
+		UserEntity user = userRepository.findByNumber(number);
 		UserBo bo = new UserBo();
-		bo.setId(user.getId());
+		bo.setUserId(user.getUserId());
+		bo.setNumber((user.getNumber()));
 		bo.setName(user.getName());
 		
 		return bo;
 	}
 	
 	public List<UserEntity> findAll(){
-		return userrepository.findAll();
+		return userRepository.findAll();
 	}
 	
 }

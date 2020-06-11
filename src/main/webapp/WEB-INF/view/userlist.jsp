@@ -18,7 +18,8 @@
         <thead>
           <tr>
               <th>ID</th>
-              <th>NAME</th>
+			  <th>NUMBER</th>
+			  <th>NAME</th>
           </tr>
         </thead>
 
