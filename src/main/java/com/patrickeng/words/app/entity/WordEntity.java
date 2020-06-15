@@ -33,6 +33,8 @@ public class WordEntity {
     @Column(name = "ModifyTime")
     private Date modifyTime;
 
+    @Column(name = "Status")
+    private String status;
 
     public String getWordId() {
         return wordId;
@@ -62,6 +64,10 @@ public class WordEntity {
         return modifyTime;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     public void setWordId(String wordId) {
         this.wordId = wordId;
     }
@@ -77,7 +83,7 @@ public class WordEntity {
     }
 
     public void setAudioPath(String audioPath) {
-        this.remarks = audioPath;
+        this.audioPath = audioPath;
     }
 
     public void setCreateTime(Date createTime) {
@@ -86,6 +92,10 @@ public class WordEntity {
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
 }

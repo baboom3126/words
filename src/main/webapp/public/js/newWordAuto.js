@@ -2,7 +2,106 @@ var res = '';
 var currentTarget;
 
 $(document).ready(function () {
+    ///
 
+    $('#btn_save').click(function () {
+        let postData = {};
+
+        let desEng = $('input[name=description-eng]');
+        let desChi = $('input[name=description-chi]')
+        let senEng = $('input[name=sentence-eng]');
+        let senChi = $('input[name=sentence-chi]');
+        let hashtags = $('.span_hashtag')
+        let word_note = $('#word_note').val();
+        var word_pronounce = $('#word_pronounce').val()
+
+        var theWord = $('#theWord').val();
+        var checkbox_speech = $('input[name=checkbox_speech]:checked');
+        var desEng_length = desEng.length
+        var desChi_length = desChi.length
+        var senEng_length = senEng.length
+
+        ////////word//////////
+        let word = {}
+        word.theWord = theWord;
+        word.speech = res.speech_arr.join(", ");
+        word.remarks = word_note;
+        word.audioPath = word_pronounce;
+
+        postData.word = word;
+
+        ////////word def///////////
+        let arr_wordDef = [];
+        for (var i = 0; i < desEng_length; i++) {
+            let defs = {};
+            defs.engDefinition = $(desEng[i]).val();
+            defs.chiDefinition = $(desChi[i]).val();
+            arr_wordDef.push(defs);
+        }
+        postData.wordDef = arr_wordDef;
+
+        ///////word sen/////////////
+
+        let arr_wordSen = [];
+
+        for (var i = 0; i < senEng_length; i++) {
+            let sens = {};
+            sens.engSentence = $(senEng[i]).val();
+            sens.chiSentence = $(senChi[i]).val();
+            arr_wordSen.push(sens);
+        }
+        postData.wordSen = arr_wordSen;
+
+        //////hash tag//////
+        let tags = [];
+        for (i of hashtags) {
+            tags.push(i.innerText.split('#')[1]);
+        }
+        postData.wordHashtag = tags;
+
+        // $.ajax({
+        //     url: "http://localhost:8080/word/new",
+        //     crossDomain: true,
+        //     type: "POST",
+        //     contentType:"application/json",
+        //     cache: "false",
+        //     data: postData,
+        //     success: function (result) {
+        //         swal.fire(result);
+        //     }, error: function (err) {
+        //     }
+        // }).then(()=>{
+        // });
+
+
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://localhost:8080/word/new",
+            "method": "POST",
+            "headers": {
+                "content-type": "application/json",
+                "cache-control": "no-cache",
+            },
+            "processData": false,
+            data: JSON.stringify(postData)
+        }
+
+        $.ajax(settings).done(function (response) {
+            $('#exampleModalLong').modal('hide');
+
+            Swal.fire({
+                title: 'Success',
+                text: response,
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then((res) => {
+                window.location.reload();
+            })
+        }).then();
+
+
+    })
 
     ///
     $('#btn_confirm').click(function () {
@@ -12,7 +111,7 @@ $(document).ready(function () {
         var senEng = $('input[name=sentence-eng]');
         var senChi = $('input[name=sentence-chi]');
         var word_note = $('#word_note').val();
-        var hashtags = $('.span_hashtag')
+        var hashtags = $('.span_hashtag');
 
 
         var theWord = $('#theWord').val();
@@ -121,6 +220,7 @@ $(document).ready(function () {
         temp.fadeIn();
         event.preventDefault();
     })
+
     /////////////////////////////////
     $('#query').click(function () {
         ////reset all form
@@ -130,21 +230,20 @@ $(document).ready(function () {
         let div_senEng = $('div[name=div_sen-eng');
         let div_senChi = $('div[name=div_sen-chi');
 
-        for(let i = 1; i <　div_desEng.length ; i++){
+        for (let i = 1; i < div_desEng.length; i++) {
             div_desEng[i].remove();
         }
-        for(let i = 1; i <　div_desChi.length ; i++){
+        for (let i = 1; i < div_desChi.length; i++) {
             div_desChi[i].remove();
         }
 
-        for(let i = 1; i <　div_senEng.length ; i++){
+        for (let i = 1; i < div_senEng.length; i++) {
             div_senEng[i].remove();
         }
 
-        for(let i = 1; i <　div_senChi.length ; i++){
+        for (let i = 1; i < div_senChi.length; i++) {
             div_senChi[i].remove();
         }
-
 
 
         ///
@@ -186,7 +285,7 @@ $(document).ready(function () {
                     let temp1 = $('input[name=description-chi]')[0];
                     $(temp1).val(res.chi_arr[0])
 
-                    for(let i = 1 ; i <desEng_length ; i++){
+                    for (let i = 1; i < desEng_length; i++) {
                         let desEng = res.eng_arr[i];
                         let desChi = res.chi_arr[i];
 
@@ -206,7 +305,7 @@ $(document).ready(function () {
 
                     }
 
-                ////////auto fill sentence
+                    ////////auto fill sentence
                     let senArr_length = res.eng_sen_arr.length;
 
                     let temp2 = $('input[name=sentence-eng]')[0];
@@ -215,7 +314,7 @@ $(document).ready(function () {
                     $(temp3).val(res.chi_sen_arr[0])
 
 
-                    for(let i = 1 ; i <senArr_length ; i++){
+                    for (let i = 1; i < senArr_length; i++) {
                         let senEng = res.eng_sen_arr[i];
                         let senChi = res.chi_sen_arr[i];
 

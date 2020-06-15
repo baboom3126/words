@@ -20,4 +20,8 @@ public class WordService {
         return wordRepository.findAll();
     }
 
+    public WordEntity findByTheWord(String theWord){
+        return wordRepository.findByTheWord(theWord);
+    }
+
 }

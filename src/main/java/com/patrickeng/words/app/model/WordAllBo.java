@@ -1,78 +1,81 @@
 package com.patrickeng.words.app.model;
 
+import com.patrickeng.words.app.entity.WordDefEntity;
+import com.patrickeng.words.app.entity.WordEntity;
+import com.patrickeng.words.app.entity.WordHashtagEntity;
+import com.patrickeng.words.app.entity.WordSenEntity;
+
+
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public class WordAllBo {
 
     private String theWord;
 
-    private String speech;
+    private WordEntity wordEntity;
 
-    private String remarks;
+    private List<WordDefEntity> wordDefEntities;
 
-    private String audioPath;
+    private List<WordSenEntity> wordSenEntities;
 
-    private ArrayList<String> tag;
+    private List<WordHashtagEntity> wordHashtagEntities;
 
-    private ArrayList<String> engDefinition;
-
-    private ArrayList<String> chiDefinition;
-
-    private ArrayList<String> engSentence;
-
-    private ArrayList<String> chiSentence;
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("theWord:").append(theWord).append(",");
-        sb.append("speech:").append(speech).append(",");
-        sb.append("remarks:").append(remarks).append(",");
-        sb.append("audioPath:").append(audioPath).append(",");
-        sb.append("tag[]:").append(tag).append(",");
-        sb.append("engDefinition[]:").append(engDefinition).append(",");
-        sb.append("chiDefinition[]:").append(chiDefinition).append(",");
-        sb.append("engSentence[]:").append(engSentence).append(",");
-        sb.append("chiSentence[]:").append(chiSentence).append(",");
-
-        return sb.toString();
+    public WordAllBo(){
+        this.wordDefEntities = new ArrayList<WordDefEntity>();
+        this.wordSenEntities = new ArrayList<WordSenEntity>();
+        this.wordHashtagEntities = new ArrayList<WordHashtagEntity>();
     }
 
     public String getTheWord() {
         return theWord;
     }
 
-    public String getSpeech() {
-        return speech;
+    public WordEntity getWordEntity() {
+        return wordEntity;
     }
 
-    public String getRemarks() {
-        return remarks;
+    public List<WordDefEntity> getWordDefEntities(){
+        return wordDefEntities;
     }
 
-    public String getAudioPath() {
-        return audioPath;
+    public List<WordSenEntity> getWordSenEntities(){
+        return wordSenEntities;
     }
 
-    public ArrayList<String> getTag() {
-        return tag;
+    public List<WordHashtagEntity> getWordHashtagEntities() {
+        return wordHashtagEntities;
     }
 
-    public ArrayList<String> getEngDefinition() {
-        return engDefinition;
+    public void setTheWord(String theWord) {
+        this.theWord = theWord;
     }
 
-    public ArrayList<String> getChiDefinition() {
-        return chiDefinition;
+    public void setWordEntity(WordEntity wordEntity) {
+        this.wordEntity = wordEntity;
     }
 
-    public ArrayList<String> getEngSentence() {
-        return engSentence;
+    public void addWordDefEntities(WordDefEntity wordDefEntity){
+        this.wordDefEntities.add(wordDefEntity);
     }
 
-    public ArrayList<String> getChiSentence() {
-        return chiSentence;
+    public void setWordDefEntities(List<WordDefEntity> wordDefEntities) {
+        this.wordDefEntities = wordDefEntities;
+    }
+
+    public void addWordSenEntities(WordSenEntity wordSenEntity){
+        this.wordSenEntities.add(wordSenEntity);
+    }
+
+    public void setWordSenEntities(List<WordSenEntity> wordSenEntities) {
+        this.wordSenEntities = wordSenEntities;
+    }
+
+    public void addWordHashtagEntities(WordHashtagEntity wordHashtagEntity){
+        this.wordHashtagEntities.add(wordHashtagEntity);
+    }
+
+    public void setWordHashtagEntities(List<WordHashtagEntity> wordHashtagEntities) {
+        this.wordHashtagEntities = wordHashtagEntities;
     }
 }

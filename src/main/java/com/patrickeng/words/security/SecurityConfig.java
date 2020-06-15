@@ -21,19 +21,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-//                .antMatchers(HttpMethod.POST, "/").hasRole("ADMIN")  // Specific api method request based on role.
-                .antMatchers("/*").permitAll()  // permited urls to guest users(without login).
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()       // not specified form page to use default login page of spring security
-                .permitAll()
-                .and()
-                .logout().deleteCookies("JSESSIONID")  // delete memory of browser after logout
-                .and()
-                .rememberMe().key("uniqueAndSecret"); // remember me check box enabled.
+//        http
+//                .authorizeRequests()
+////                .antMatchers(HttpMethod.POST, "/").hasRole("ADMIN")  // Specific api method request based on role.
+//                .antMatchers("/*").permitAll()  // permited urls to guest users(without login).
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()       // not specified form page to use default login page of spring security
+//                .permitAll()
+//                .and()
+//                .logout().deleteCookies("JSESSIONID")  // delete memory of browser after logout
+//                .and()
+//                .rememberMe().key("uniqueAndSecret"); // remember me check box enabled.
+//
+//        http.csrf().disable();  // ADD THIS CODE TO DISABLE CSRF IN PROJECT.**
+        http.csrf().disable().authorizeRequests().anyRequest().permitAll();
 
-        http.csrf().disable();  // ADD THIS CODE TO DISABLE CSRF IN PROJECT.**
     }
 }

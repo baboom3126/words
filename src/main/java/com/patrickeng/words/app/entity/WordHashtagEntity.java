@@ -20,6 +20,9 @@ public class WordHashtagEntity {
     @Column(name = "Tag")
     private String tag;
 
+    @Column(name = "Status")
+    private String status;
+
     public String getWordHashTagId() {
         return wordHashTagId;
     }
@@ -30,6 +33,10 @@ public class WordHashtagEntity {
 
     public String getTag() {
         return tag;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public void setWordHashTagId(Long id) {
@@ -43,4 +50,9 @@ public class WordHashtagEntity {
     public void setTag(String tag) {
         this.tag = tag;
     }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 }

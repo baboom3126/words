@@ -16,6 +16,10 @@ public class WordHashtagService {
         wordHashtagRepository.save(wordHashtagEntity);
     }
 
+    public List<WordHashtagEntity> findByTheWord(String theWord){
+        return wordHashtagRepository.findByTheWord(theWord);
+    }
+
     public List<WordHashtagEntity> findAll(){
         return wordHashtagRepository.findAll();
     }

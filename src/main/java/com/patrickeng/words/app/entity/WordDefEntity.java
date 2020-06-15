@@ -5,14 +5,14 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "WordDefSen")
+@Table(name = "WordDef")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class WordDefSenEntity {
+public class WordDefEntity {
 
     @Id
     @GeneratedValue(generator = "jpa-uuid")
-    @Column(name = "WordDefSenId", length = 32)
-    private String wordDefSenId;
+    @Column(name = "WordDefId", length = 32)
+    private String wordDefId;
 
     @Column(name = "TheWord")
     private String theWord;
@@ -23,14 +23,14 @@ public class WordDefSenEntity {
     @Column(name = "ChiDefinition")
     private String chiDefinition;
 
-    @Column(name = "EngSentence")
-    private String engSentence;
+    @Column(name = "Myorder")
+    private int myOrder;
 
-    @Column(name = "ChiSentence")
-    private String chiSentence;
+    @Column(name = "Status")
+    private String status;
 
-    public String getWordDefSenId() {
-        return wordDefSenId;
+    public String getWordDefId() {
+        return wordDefId;
     }
 
     public String getTheWord() {
@@ -45,16 +45,16 @@ public class WordDefSenEntity {
         return chiDefinition;
     }
 
-    public String getEngSentence() {
-        return engSentence;
+    public int getMyOrder() {
+        return myOrder;
     }
 
-    public String getChiSentence() {
-        return chiSentence;
+    public String getStatus() {
+        return status;
     }
 
-    public void setWordDefSenId(String wordDefSenId) {
-        this.wordDefSenId = wordDefSenId;
+    public void setWordDefId(String wordDefId) {
+        this.wordDefId = wordDefId;
     }
 
     public void setTheWord(String theWord) {
@@ -69,12 +69,12 @@ public class WordDefSenEntity {
         this.chiDefinition = chiDefinition;
     }
 
-    public void setEngSentence(String engSentence) {
-        this.engDefinition = engSentence;
+    public void setMyOrder(int myOrder) {
+        this.myOrder = myOrder;
     }
 
-    public void setChiSentence(String chiSentence) {
-        this.chiDefinition = chiSentence;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
 }
