@@ -5,6 +5,8 @@ $(document).ready(function () {
     ///
 
     $('#btn_save').click(function () {
+
+        swal.showLoading();
         let postData = {};
 
         let desEng = $('input[name=description-eng]');
@@ -13,7 +15,8 @@ $(document).ready(function () {
         let senChi = $('input[name=sentence-chi]');
         let hashtags = $('.span_hashtag')
         let word_note = $('#word_note').val();
-        var word_pronounce = $('#word_pronounce').val()
+        let word_pronounce = $('#word_pronounce').val();
+
 
         var theWord = $('#theWord').val();
         var checkbox_speech = $('input[name=checkbox_speech]:checked');
@@ -24,7 +27,7 @@ $(document).ready(function () {
         ////////word//////////
         let word = {}
         word.theWord = theWord;
-        word.speech = res.speech_arr.join(", ");
+        word.speech = $('input[name=input_speech]').val();
         word.remarks = word_note;
         word.audioPath = word_pronounce;
 
@@ -59,46 +62,63 @@ $(document).ready(function () {
         }
         postData.wordHashtag = tags;
 
-        // $.ajax({
-        //     url: "http://localhost:8080/word/new",
-        //     crossDomain: true,
-        //     type: "POST",
-        //     contentType:"application/json",
-        //     cache: "false",
-        //     data: postData,
-        //     success: function (result) {
-        //         swal.fire(result);
-        //     }, error: function (err) {
-        //     }
-        // }).then(()=>{
+        $.ajax({
+            url: "http://localhost:8080/word/new",
+            crossDomain: true,
+            type: "POST",
+            contentType:"application/json",
+            cache: "false",
+            data: JSON.stringify(postData),
+            success: function (result) {
+                    Swal.fire({
+                        title: 'Success',
+                        text: result,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then((res) => {
+                        window.location.reload();
+                    })
+
+
+            }, error: function (err) {
+                Swal.fire({
+                    title: 'Error',
+                    text: err.responseText,
+                    icon: 'Error',
+                    confirmButtonText: 'OK'
+                })
+            }
+        })
+
+
+        // var settings = {
+        //     "async": true,
+        //     "crossDomain": true,
+        //     "url": "http://localhost:8080/word/new",
+        //     "method": "POST",
+        //     "headers": {
+        //         "content-type": "application/json",
+        //         "cache-control": "no-cache",
+        //     },
+        //     "processData": false,
+        //     data: JSON.stringify(postData)
+        // }
+        //
+        // $.ajax(settings).done(function (response) {
+        //     $('#exampleModalLong').modal('hide');
+        //     return response;
+        //
+        // }).then((response)=>{
+        //     Swal.fire({
+        //         title: 'Success',
+        //         text: response,
+        //         icon: 'success',
+        //         confirmButtonText: 'OK'
+        //     }).then((res) => {
+        //         window.location.reload();
+        //     })
+        //
         // });
-
-
-        var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": "http://localhost:8080/word/new",
-            "method": "POST",
-            "headers": {
-                "content-type": "application/json",
-                "cache-control": "no-cache",
-            },
-            "processData": false,
-            data: JSON.stringify(postData)
-        }
-
-        $.ajax(settings).done(function (response) {
-            $('#exampleModalLong').modal('hide');
-
-            Swal.fire({
-                title: 'Success',
-                text: response,
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then((res) => {
-                window.location.reload();
-            })
-        }).then();
 
 
     })
@@ -141,7 +161,7 @@ $(document).ready(function () {
         appendHtml +=
             `
           <h1 class="heading cc_pointer " onclick="javascript:playAudio();">${theWord}&nbsp&nbsp<i class="fa fa-headphones"></i></h1>
-          <h2 class="heading cc_pointer"><i class="fa fa-paperclip"></i>&nbsp ${res.speech_arr.join(", ")}</h2><hr>
+          <h2 class="heading cc_pointer"><i class="fa fa-paperclip"></i>&nbsp ${$('input[name=input_speech]').val()}</h2><hr>
           `
 
         for (var i = 0; i < desEng_length; i++) {

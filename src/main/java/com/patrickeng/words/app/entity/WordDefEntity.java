@@ -3,11 +3,12 @@ package com.patrickeng.words.app.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "WordDef")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class WordDefEntity {
+public class WordDefEntity implements Serializable {
 
     @Id
     @GeneratedValue(generator = "jpa-uuid")

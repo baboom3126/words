@@ -35,45 +35,51 @@ public class WordController {
         return "word/NewWordAutoPage";
     }
 
-    public WordAllBo getWordAllBo(String theQueryWord){
+    public Map<String,Object> getWordAllBo(String theQueryWord){
 
-        WordAllBo wordAllBo = new WordAllBo();
-        wordAllBo.setTheWord(theQueryWord);
+//        WordAllBo wordAllBo = new WordAllBo();
+//        wordAllBo.setTheWord(theQueryWord);
 
         WordEntity wordEntity = wordService.findByTheWord(theQueryWord);
         List<WordDefEntity> wordDefEntities = wordDefService.findByTheWord(theQueryWord);
         List<WordSenEntity> wordSenEntities = wordSenService.findByTheWord(theQueryWord);
-        List<WordHashtagEntity> wordHashtagEntities = wordHashtagService.findByTheWord(theQueryWord);
+//        List<WordHashtagEntity> wordHashtagEntities = wordHashtagService.findByTheWord(theQueryWord);
 
-        wordAllBo.setTheWord(theQueryWord);
-        wordAllBo.setWordEntity(wordEntity);
-        wordAllBo.setWordDefEntities(wordDefEntities);
-        wordAllBo.setWordSenEntities(wordSenEntities);
-        wordAllBo.setWordHashtagEntities(wordHashtagEntities);
+//        wordAllBo.setTheWord(theQueryWord);
+//        wordAllBo.setWordEntity(wordEntity);
+//        wordAllBo.setWordDefEntities(wordDefEntities);
+//        wordAllBo.setWordSenEntities(wordSenEntities);
+//        wordAllBo.setWordHashtagEntities(wordHashtagEntities);
 
-        return wordAllBo;
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("wordEntity",wordEntity);
+        map.put("wordDefEntities",wordDefEntities);
+        map.put("wordSenEntities",wordSenEntities);
+//        map.put("wordHashtagEntities",wordHashtagEntities);
+
+        return map;
     }
 
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/query/{theQueryWord}")
     @ResponseBody
     public ResponseEntity<?> getOneWord(HttpServletRequest request, HttpServletResponse response, @PathVariable final String theQueryWord) {
 
+        Map<String, Object> map = new HashMap<String, Object>();
 
-        WordAllBo wordAllBo;
-        wordAllBo = getWordAllBo(theQueryWord);
+        map = getWordAllBo(theQueryWord);
 
-        return new ResponseEntity<WordAllBo>(wordAllBo, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 
 
     }
 
 
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/queryAll")
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/queryAllDetail")
     @ResponseBody
-    public ResponseEntity<?> getAllWord(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<?> queryAllDetail(HttpServletRequest request, HttpServletResponse response) {
 
-        WordAllBo wordAllBo = new WordAllBo();
-        List<WordAllBo> WordAllBoList = new ArrayList<WordAllBo>();
+        List<Map<String,Object>> WordAllBoList = new ArrayList<>();
+
         List<WordEntity> WordEntityList = wordService.findAll();
 
 
@@ -88,7 +94,22 @@ public class WordController {
 
 
 
-        return new ResponseEntity<List<WordAllBo>>(WordAllBoList, HttpStatus.OK);
+        return new ResponseEntity<List<Map<String,Object>>>(WordAllBoList, HttpStatus.OK);
+
+
+    }
+
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/queryAllSimple")
+    @ResponseBody
+    public ResponseEntity<?> queryAllSimple(HttpServletRequest request, HttpServletResponse response) {
+
+        List<WordEntity> WordEntityList = wordService.findAll();
+
+
+
+
+
+        return new ResponseEntity<List<WordEntity>>(WordEntityList, HttpStatus.OK);
 
 
     }
