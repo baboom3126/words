@@ -1,10 +1,14 @@
 package com.patrickeng.words.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="Employee")
-public class Employee {
+public class Employee implements Serializable {
 
     @Id
     @Column(name="EmployeeId")
@@ -14,7 +18,8 @@ public class Employee {
     private String employeeName;
 
     @ManyToOne(fetch=FetchType.LAZY) // @ManyToOne JPA預設的fetch=FetchType.EAGER，改為FetchType.LAZY
-    @JoinColumn(name="departmentId")
+    @JoinColumn(name="DepartmentId")
+    @JsonBackReference
     private Department department;
 
     // getter and setter ommitted

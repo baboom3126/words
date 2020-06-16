@@ -36,9 +36,10 @@ public class DepartmentController {
     public ResponseEntity<?> test1(HttpServletRequest request, HttpServletResponse response, @PathVariable final String para) {
 
 
-        Department department = new Department();
         List<Department> departmentList = departmentService.findAll();
-
+        for(Department department: departmentList){
+            department.getEmployeeList();
+        }
 
         return new ResponseEntity<List<Department>>(departmentList, HttpStatus.OK);
 
@@ -55,20 +56,20 @@ public class DepartmentController {
 
         Employee employee1 = new Employee();
         employee1.setEmployeeId(1003);
-        employee1.setEmployeeName("test1");
+        employee1.setEmployeeName("test3");
         employee1.setDepartment(department);
 
-
-        Employee emploee2 = new Employee();
-        emploee2.setEmployeeId(1004);
-        emploee2.setEmployeeName("test2");
-        emploee2.setDepartment(department);
+        Employee employee2 = new Employee();
+        employee2.setEmployeeId(1004);
+        employee2.setEmployeeName("test4");
+        employee2.setDepartment(department);
 
         List<Employee> employeeList = new ArrayList<Employee>();
         employeeList.add(employee1);
-        employeeList.add(emploee2);
+        employeeList.add(employee2);
         department.setEmployeeList(employeeList);
         departmentService.save(department);
+
         return new ResponseEntity<Department>(department, HttpStatus.OK);
 
     }
