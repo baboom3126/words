@@ -48,7 +48,7 @@
                                             <input type="text" class="form-control" id="theWord"
                                                    placeholder="Search for...">
                                             <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" id="query">Go!</button>
+                            <button class="btn btn-primary" type="button" id="query">Go!</button>
                           </span>
                                         </div>
                                     </div>

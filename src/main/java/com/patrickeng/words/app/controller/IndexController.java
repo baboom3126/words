@@ -20,6 +20,10 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping(value = "/emptyPage")
+    public String emptyPage() {
+        return "emptyPage";
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/get/{id}")
     @ResponseBody

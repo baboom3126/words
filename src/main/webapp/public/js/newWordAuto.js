@@ -1,5 +1,7 @@
 var res = '';
 var currentTarget;
+var baseURL = window.location.origin;
+
 
 $(document).ready(function () {
     ///
@@ -271,7 +273,7 @@ $(document).ready(function () {
         var para = $('#theWord').val();
         console.log(para)
         $.ajax({
-            url: "http://www.paishienglish.com/api/v2?para=" + para,
+            url: "http://localhost/api/v2?para=" + para,
             crossDomain: true,
             type: "get",
             cache: "false",

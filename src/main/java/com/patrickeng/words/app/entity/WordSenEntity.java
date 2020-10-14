@@ -7,7 +7,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "WordSen")
+@Table(name = "WordSen",
+        indexes = {@Index(name = "index_of_WordSen_theWord", columnList = "TheWord",unique = false)}
+)
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class WordSenEntity implements Serializable {
 

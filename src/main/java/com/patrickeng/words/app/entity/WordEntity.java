@@ -7,7 +7,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "Word")
+@Table(name = "Word",
+        indexes = {@Index(name = "index_of_Word_theWord", columnList = "TheWord",unique = false)}
+)
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class WordEntity implements Serializable {
 

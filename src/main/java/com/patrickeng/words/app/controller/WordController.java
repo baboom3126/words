@@ -30,9 +30,24 @@ public class WordController {
     @Autowired
     private WordSenService wordSenService;
 
-    @RequestMapping(value = "/new/auto/")
-    public String indexPage() {
+    @RequestMapping(value = "/newOne")
+    public String NewWordAutoPage() {
         return "word/NewWordAutoPage";
+    }
+
+    @RequestMapping(value = "/newBatch")
+    public String NewWordByBatchPage() {
+        return "word/NewWordByBatchPage";
+    }
+
+    @RequestMapping(value = "/simpleWordList")
+    public String SimpleWordListPage() {
+        return "word/SimpleWordListPage";
+    }
+
+    @RequestMapping(value = "/detailWordList")
+    public String DetailWordListPage() {
+        return "word/DetailWordListPage";
     }
 
     public Map<String,Object> getWordAllBo(String theQueryWord){
@@ -60,7 +75,7 @@ public class WordController {
         return map;
     }
 
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/query/{theQueryWord}")
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/query/{theQueryWord}",produces = "application/json;charset=UTF-8")
     @ResponseBody
     public ResponseEntity<?> getOneWord(HttpServletRequest request, HttpServletResponse response, @PathVariable final String theQueryWord) {
 
@@ -74,7 +89,7 @@ public class WordController {
     }
 
 
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/queryAllDetail")
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/queryAllDetail" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
     public ResponseEntity<?> queryAllDetail(HttpServletRequest request, HttpServletResponse response) {
 
@@ -99,7 +114,7 @@ public class WordController {
 
     }
 
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/queryAllSimple")
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/queryAllSimple" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
     public ResponseEntity<?> queryAllSimple(HttpServletRequest request, HttpServletResponse response) {
 
@@ -115,7 +130,7 @@ public class WordController {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST, value = "/new")
+    @RequestMapping(method = RequestMethod.POST, value = "/new" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
     public ResponseEntity<?> addNewWord(HttpServletRequest request, HttpServletResponse response,
                                         @RequestBody Map<String, Object> wordMap) {

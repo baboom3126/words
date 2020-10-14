@@ -6,7 +6,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "WordHashtag")
+@Table(name = "WordHashtag",
+        indexes = {@Index(name = "index_of_WordHashtag_theWord", columnList = "TheWord",unique = false)}
+)
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class WordHashtagEntity implements Serializable {
 
